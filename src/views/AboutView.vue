@@ -84,9 +84,12 @@
                                                 :class="{ 'show active': currentStep === index }"
                                             >
                                                 <!-- Contenu de chaque étape du formulaire -->
-                                                <component v-bind:is="steps[currentStep]">
-
-                                                </component>
+                                                <component
+                                                
+                                                v-bind:is="steps[currentStep]"
+                                                v-bind:formValues = "values"
+                                                
+                                                ></component>
                                                 <div class="col-12">
                                                     <div class="form-group button mb-0">
                                                         <button v-on:click="previousStep" type="submit" class="btn alt-btn">Previous</button>
@@ -146,10 +149,15 @@
   import NavBar from '@/components/NavBar.vue';
   import { ref } from 'vue';
   import axios from 'axios';
+  import useForm from '../assets/js/composables/formValues.js'
 
   import StepOne from '../components/StepOne.vue';
   import StepTwo from '../components/StepTwo.vue';
   import StepThree from '../components/StepThree.vue';
+
+  const {
+    values
+  } = useForm();
 
   const currentStep = ref(0);
   const formData = ref('');
@@ -166,27 +174,44 @@
         currentStep.value--
     }
 
-    const clientHttp = axios.create(
-    {
-        baseURL: "http://localhost:8000/api/",
-        headers: {
-            Accept: "application/json",
-        }
+    const nextStep = () =>{
+        currentStep.value++
     }
-)
 
-    const nextStep = async () => {
-  if (currentStep.value < steps.length - 1) {
-    const response = await clientHttp.post(`ad/${steps[currentStep.value]}`, formData.value);
-    if (response.data.data) {
-      formData.value = response.data.data;
-      currentStep.value++;
-    } else {
-      // Gérer les erreurs ici
-      console.error('Erreur lors du traitement de la requête API');
-    }
-  }
-};
+    // const csrfToken = document.head.querySelector<HTMLMetaElement>('meta[name="csrf-token"]')?.content;
+        // const csrfToken = () => {
+        // const token = document.head.querySelector<HTMLMetaElement>('meta[name="csrf-token"]');
+        // return token ? token.content : '';
+        // };
+//     const clientHttp = axios.create(
+//     {
+//         baseURL: "http://localhost:8000/api/",
+//         headers: {
+//             Accept: "application/json",
+//         }
+//     }
+// )
+// const token = localStorage.getItem('token');
+
+
+//     const nextStep = async () => {
+//   if (currentStep.value < steps.length - 1) {
+//     const stepRoute = `step${currentStep.value + 1}`;
+    
+//     const response = await clientHttp.post(`ad/${stepRoute}`, formData.value,{
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       }
+//       });
+//     if (response.data.data) {
+//       formData.value = response.data.data;
+//       currentStep.value++;
+//     } else {
+//       // Gérer les erreurs ici
+//       console.error('Erreur lors du traitement de la requête API');
+//     }
+//   }
+// };
 </script>
 
 <style>

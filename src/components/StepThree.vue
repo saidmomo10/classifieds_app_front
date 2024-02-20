@@ -1,17 +1,24 @@
 <template>
-    <div class="step-three">
-    <form @submit.prevent="submitStepThree">
-      <div>{{ formData }}</div>
+    <form action="" @submit.prevent="submitStepThree">
+      <p v-text="props.formValues.title"></p>
+    <p v-text="props.formValues.price"></p>
+    <p v-text="props.formValues.description"></p>
+    <p v-text="props.formValues.country"></p>
+    <p v-text="props.formValues.city"></p>
+    <p v-text="props.formValues.delivery_status"></p>
+    <p v-text="props.formValues.state"></p>
 
-      <!-- <button @click="prevStep">Previous</button>
-      <button type="submit">Submit Form</button> -->
+    <button type="submit" class="btn ">Next Step</button>
+
     </form>
-  </div>
 </template>
 
 <script setup lang="ts">
     import { ref } from 'vue';
 import axios from 'axios';
+const props = defineProps(['formValues']);
+console.log(props.formValues)
+
 
 // const formData = ref({ title: '', price: '' });
 
@@ -39,39 +46,30 @@ import axios from 'axios';
 
 
 
-import { defineProps, defineEmits } from 'vue';
 
-const props = defineProps<{
-  formData: Record<string, any>;
-}>();
+const token = localStorage.getItem('token');
 
 const clientHttp = axios.create(
     {
         baseURL: "http://localhost:8000/api/",
         headers: {
             Accept: "application/json",
+            Authorization: `Bearer ${token}`,
         }
     }
 )
 
-// eslint-disable-next-line vue/valid-define-emits
-const emit = defineEmits();
 
 const submitStepThree = async () => {
   try {
     // Envoyer les données de l'étape trois une fois soumises
     // Vous pouvez également ajouter des validations ici
     // et déclencher l'événement resetForm une fois le formulaire soumis avec succès
-    const response = await clientHttp.post('/api/add/step-three');
-    console.log(response.data.message);
-    emit('resetForm');
+    const response = await clientHttp.post('ads', props.formValues);
+    console.log(response.data);
   } catch (error) {
     console.error('Error submitting step three:', error);
   }
 };
 
-const prevStep = () => {
-  // Déclencher l'événement prevStep pour revenir à l'étape précédente
-  emit('prevStep');
-};
 </script>

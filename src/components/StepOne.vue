@@ -1,10 +1,11 @@
+<!-- eslint-disable vue/no-mutating-props -->
 <template>
     <form class="default-form-style" method="post" action="#">
         <div class="row">
             <div class="col-12">
                 <div class="form-group">
                     <label>Add Title*</label>
-                    <input name="title" type="text" placeholder="Enter Title" v-model="formData.title">
+                    <input name="title" type="text" placeholder="Enter Title" v-model="props.formValues.title">
                 </div>
             </div>
             <div class="col-12">
@@ -34,14 +35,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+const props = defineProps(['formValues'])
 
 
 
-    const formData = ref({
-        title: '',
-        // subcategory_id: '',
-    })
+// import { ref } from 'vue';
+
+
+
+//     const formData = ref({
+//         title: '',
+//         // subcategory_id: '',
+//     })
 
 //     const loading = ref(false);
 

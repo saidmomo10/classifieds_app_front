@@ -1,10 +1,11 @@
+<!-- eslint-disable vue/no-mutating-props -->
 <template>
-    <form @submit.prevent="submitStepTwo" class="default-form-style" method="post" action="#">
+    <form class="default-form-style" method="post" action="#">
         <div class="row">
             <div class="col-12">
                 <div class="form-group">
                     <label>Add Price*</label>
-                    <input name="price" type="text" placeholder="Enter Price" v-model="formData.price">
+                    <input name="price" type="number" placeholder="Enter Price" v-model="props.formValues.price">
                 </div>
             </div>
             <!-- <div class="col-12">
@@ -27,15 +28,15 @@
                     <div class="selector-head">
                         <span class="arrow"><i
                                 class="lni lni-chevron-down"></i></span>
-                        <select class="user-chosen-select" v-model="formData.country">
+                        <select class="user-chosen-select" v-model="props.formValues.country">
                             <option value="none">Select a Country</option>
-                            <option value="none">Afghanistan</option>
-                            <option value="none">America</option>
+                            <option value="Afghanistan">Afghanistan</option>
+                            <!-- <option value="none">America</option>
                             <option value="none">Albania</option>
                             <option value="none">Bangladesh</option>
                             <option value="none">Brazil</option>
                             <option value="none">India</option>
-                            <option value="none">South Africa</option>
+                            <option value="none">South Africa</option> -->
                         </select>
                     </div>
                 </div>
@@ -47,13 +48,13 @@
                     <div class="selector-head">
                         <span class="arrow"><i
                                 class="lni lni-chevron-down"></i></span>
-                        <select class="user-chosen-select" v-model="formData.city">
+                        <select class="user-chosen-select" v-model="props.formValues.city">
                             <option value="none">Select City</option>
-                            <option value="none">New York</option>
-                            <option value="none">Los Angeles</option>
+                            <option value="New York">New York</option>
+                            <!-- <option value="none">Los Angeles</option>
                             <option value="none">Chicago</option>
                             <option value="none">San Diego</option>
-                            <option value="none">San Jose</option>
+                            <option value="none">San Jose</option> -->
                         </select>
                     </div>
                 </div>
@@ -88,7 +89,7 @@
             <div class="col-12">
                 <div class="form-group mt-30">
                     <label>Ad Description*</label>
-                    <textarea name="message" placeholder="Input ad description" v-model="formData.description"></textarea>
+                    <textarea name="message" placeholder="Input ad description" v-model="props.formValues.description"></textarea>
                 </div>
             </div>
             <div class="col-lg-6 col-12">
@@ -96,10 +97,23 @@
                     <label>Delivery Status*</label>
                     <div class="selector-head">
                         <span class="arrow"><i class="lni lni-chevron-down"></i></span>
-                        <select class="user-chosen-select" v-model="formData.delivery_statut">
-                            <option value="none">Select an option</option>
-                            <option value="none">Oui</option>
-                            <option value="none">Non</option>
+                        <select class="user-chosen-select" v-model="props.formValues.delivery_status">
+                            <option value="">Select an option</option>
+                            <option value="Oui">Oui</option>
+                            <option value="Non">Non</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-12">
+                <div class="form-group">
+                    <label>State*</label>
+                    <div class="selector-head">
+                        <span class="arrow"><i class="lni lni-chevron-down"></i></span>
+                        <select class="user-chosen-select" v-model="props.formValues.state">
+                            <option value="">Select an option</option>
+                            <option value="Oui">Oui</option>
+                            <option value="Non">Non</option>
                         </select>
                     </div>
                 </div>
@@ -137,48 +151,50 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import axios from 'axios';
+const props = defineProps(['formValues'])
+
+// import { ref } from 'vue';
+// import axios from 'axios';
 
 // eslint-disable-next-line vue/no-dupe-keys
-const formData = ref({
-    price: '',
-    country:'',
-    city:'',
-    description:'',
-    delivery_statut:'' 
-});
+// const formData = ref({
+//     price: '',
+//     country:'',
+//     city:'',
+//     description:'',
+//     delivery_statut:'' 
+// });
 
-import { defineProps, defineEmits } from 'vue';
+// import { defineProps, defineEmits } from 'vue';
 
-const props = defineProps<{
-  formData: Record<string, any>;
-}>();
+// const props = defineProps<{
+//   formData: Record<string, any>;
+// }>();
 
-const clientHttp = axios.create(
-    {
-        baseURL: "http://localhost:8000/api/",
-        headers: {
-            Accept: "application/json",
-        }
-    }
-)
+// const clientHttp = axios.create(
+//     {
+//         baseURL: "http://localhost:8000/api/",
+//         headers: {
+//             Accept: "application/json",
+//         }
+//     }
+// )
 
 
-// eslint-disable-next-line vue/valid-define-emits
-const emit = defineEmits();
+// // eslint-disable-next-line vue/valid-define-emits
+// const emit = defineEmits();
 
-const submitStepTwo = async () => {
-  try {
-    const response = await clientHttp.post('/api/ad/step-two', props.formData);
-    console.log(response.data.message);
-    emit('nextStep');
-  } catch (error) {
-    console.error('Error submitting step two:', error);
-  }
-};
+// const submitStepTwo = async () => {
+//   try {
+//     const response = await clientHttp.post('/api/ad/step-two', props.formData);
+//     console.log(response.data.message);
+//     emit('nextStep');
+//   } catch (error) {
+//     console.error('Error submitting step two:', error);
+//   }
+// };
 
-const prevStep = () => {
-  emit('prevStep');
-};
+// const prevStep = () => {
+//   emit('prevStep');
+// };
 </script>
