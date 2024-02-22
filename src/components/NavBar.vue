@@ -1,7 +1,3 @@
-<script setup lang="ts">
-
-</script>
-
 <template>
     <!-- Preloader -->
     <!-- <div class="preloader">
@@ -128,6 +124,9 @@
                                     </li>
                                 </ul>
                             </div>
+                            <div v-if = "statusData.pivot">
+                                {{ statusData.pivot.status }}
+                            </div>
                             <div class="button header-button">
                                 <a href="about" class="btn">Post an Ad</a>
                             </div>
@@ -139,3 +138,43 @@
     </header>
     <!-- End Header Area -->
 </template>
+
+
+
+<script setup lang="ts">
+    import {ref, onMounted} from 'vue'
+import axios from 'axios';
+
+const token = localStorage.getItem('token');
+
+const clientHttp = axios.create(
+    {
+        baseURL: "http://localhost:8000/api/",
+        headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+        }
+    }
+)
+
+
+const statusData = ref([])
+
+const status = async ()=>{
+    if (token){
+        try{
+            // const email = router.currentRoute.params.email;
+            const statusResponse = await clientHttp.get('showSubscription')
+      console.log(statusResponse);
+      
+            if(statusResponse.status === 200){
+                statusData.value = statusResponse.data
+            }
+        } catch(error){
+            console.log(error);
+            
+        }
+    }
+}
+onMounted(status);
+</script>

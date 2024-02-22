@@ -1,12 +1,19 @@
 <template>
-    <form action="" @submit.prevent="submitStepThree">
-      <p v-text="props.formValues.title"></p>
-    <p v-text="props.formValues.price"></p>
-    <p v-text="props.formValues.description"></p>
-    <p v-text="props.formValues.country"></p>
-    <p v-text="props.formValues.city"></p>
-    <p v-text="props.formValues.delivery_status"></p>
-    <p v-text="props.formValues.state"></p>
+    <form action="" @submit.prevent="submitStepThree" enctype="multipart/form-data">
+      <div>
+      <p v-if="props.formValues.images && props.formValues.images.length > 0">Images sélectionnées :</p>
+      <div v-for="image in props.formValues.images" :key="image.name">
+        <img :src="getImageUrl(image)" alt="Selected image" style="max-width: 200px; max-height: 200px; margin-bottom: 10px;">
+      </div>
+    </div>      <p v-text="props.formValues.title"></p>
+      <p v-text="props.formValues.price"></p>
+      <p v-text="props.formValues.description"></p>
+      <p v-text="props.formValues.country"></p>
+      <p v-text="props.formValues.city"></p>
+      <p v-text="props.formValues.delivery_status"></p>
+      <p v-text="props.formValues.state"></p>
+      <p v-text="props.formValues.price_type"></p>
+      <p v-text="props.formValues.phone"></p>
 
     <button type="submit" class="btn ">Next Step</button>
 
@@ -43,7 +50,9 @@ console.log(props.formValues)
 
 
 
-
+const getImageUrl = (image: Blob | MediaSource) => {
+  return URL.createObjectURL(image);
+}
 
 
 
@@ -53,6 +62,7 @@ const clientHttp = axios.create(
     {
         baseURL: "http://localhost:8000/api/",
         headers: {
+            'Content-Type': "multipart/form-data",
             Accept: "application/json",
             Authorization: `Bearer ${token}`,
         }

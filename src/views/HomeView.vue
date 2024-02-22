@@ -470,22 +470,22 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6 col-12">
+            <div v-if = "sub" class="row">
+                <div  :v-for = "sub in subscriptionData" class="col-lg-4 col-md-6 col-12">
                     <!-- Single Table -->
                     <div class="single-table wow fadeInUp" data-wow-delay=".2s">
                         <!-- Table Head -->
                         <div class="table-head">
                             <div class="price">
-                                <h2 class="amount">$00<span class="duration">/ Month</span></h2>
+                                <h2 class="amount">${{ sub.price }}<span class="duration">/ Month</span></h2>
                             </div>
-                            <h4 class="title">Free</h4>
+                            <h4 class="title">{{ sub.name }}</h4>
                         </div>
                         <!-- End Table Head -->
                         <!-- Table List -->
                         <ul class="table-list">
-                            <li>One Listing</li>
-                            <li>Contact Display</li>
+                            <li>{{ sub.duration }}</li>
+                            <li>{{ sub.description }}</li>
                             <li>Image Gallery</li>
                             <li>30 Days Availablity</li>
                             <li>Non-Featured</li>
@@ -493,25 +493,24 @@
                         </ul>
                         <!-- End Table List -->
                         <!-- Table Bottom -->
-                        <div class="button">
-                            <a class="btn" href="javascript:void(0)">Select Plan</a>
-                        </div>
+                            <div class="button">
+                                <button @click="activateSubscription(sub.id)" class="btn">Activate</button>                            </div>
                         <!-- End Table Bottom -->
                     </div>
                     <!-- End Single Table-->
                 </div>
-                <div class="col-lg-4 col-md-6 col-12">
-                    <!-- Single Table -->
+                <!-- <div class="col-lg-4 col-md-6 col-12">
+                    
                     <div class="single-table wow fadeInUp" data-wow-delay=".4s">
-                        <!-- Table Head -->
+                        
                         <div class="table-head">
                             <div class="price">
                                 <h2 class="amount">$59<span class="duration">/ Month</span></h2>
                             </div>
                             <h4 class="title">Standard</h4>
                         </div>
-                        <!-- End Table Head -->
-                        <!-- Table List -->
+                        
+                        
                         <ul class="table-list">
                             <li>One Listing</li>
                             <li>Contact Display</li>
@@ -520,27 +519,20 @@
                             <li>Non-Featured</li>
                             <li>Business Tagline</li>
                         </ul>
-                        <!-- End Table List -->
-                        <!-- Table Bottom -->
+                        
                         <div class="button">
                             <a class="btn" href="javascript:void(0)">Select Plan</a>
                         </div>
-                        <!-- End Table Bottom -->
                     </div>
-                    <!-- End Single Table-->
                 </div>
                 <div class="col-lg-4 col-md-6 col-12">
-                    <!-- Single Table -->
                     <div class="single-table wow fadeInUp" data-wow-delay=".6s">
-                        <!-- Table Head -->
                         <div class="table-head">
                             <div class="price">
                                 <h2 class="amount">$99<span class="duration">/ Month</span></h2>
                             </div>
                             <h4 class="title">Premium</h4>
                         </div>
-                        <!-- End Table Head -->
-                        <!-- Table List -->
                         <ul class="table-list">
                             <li>One Listing</li>
                             <li>Contact Display</li>
@@ -549,15 +541,11 @@
                             <li>Non-Featured</li>
                             <li>Business Tagline</li>
                         </ul>
-                        <!-- End Table List -->
-                        <!-- Table Bottom -->
                         <div class="button">
                             <a class="btn" href="javascript:void(0)">Select Plan</a>
                         </div>
-                        <!-- End Table Bottom -->
                     </div>
-                    <!-- End Single Table-->
-                </div>
+                </div> -->
             </div>
         </div>
     </section>
@@ -722,5 +710,54 @@
 <script setup lang="ts">
 import NavBar from '../components/NavBar.vue'
 import CategorySlider from '../components/CategorySlider.vue'
+import {ref} from 'vue'
+import axios from 'axios';
+
+const token = localStorage.getItem('token');
+
+const clientHttp = axios.create(
+    {
+        baseURL: "http://localhost:8000/api/",
+        headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+        }
+    }
+)
+
+
+const subscriptionData = ref([])
+
+const subscription = async ()=>{
+    if (token){
+        try{
+            // const email = router.currentRoute.params.email;
+            const subscriptionResponse = await clientHttp.get('subscriptions-list')
+      console.log(subscriptionResponse);
+      
+            if(subscriptionResponse.status === 200){
+                subscriptionData.value = subscriptionResponse.data
+            }
+        } catch(error){
+            console.log(error);
+            
+        }
+    }
+}
+subscription();
+
+
+async function activateSubscription(id: number){
+    try {
+        const activate = await clientHttp.put(`activateSubscription/${id}`);
+        console.log(activate);
+    }catch(error){
+            // emailError.value = 'L\'adresse email doit contenir le symbole "@".';
+            // passwordError.value = 'Le mot de passe doit avoir au moins 8 caractères.';
+            console.log(error);
+    }
+}
 
 </script>
+
+

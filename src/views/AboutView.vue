@@ -72,7 +72,7 @@
                                                 >
                                                 <span class="serial">0{{ index + 1 }}</span> 
                                                 Step
-                                                <span class="sub-title">{{ step.title }}</span>
+                                                <span class="sub-title">{{ step.__name }}</span>
                                                 </button>
                                             </div>
                                         </nav>
@@ -91,9 +91,9 @@
                                                 
                                                 ></component>
                                                 <div class="col-12">
-                                                    <div class="form-group button mb-0">
-                                                        <button v-on:click="previousStep" type="submit" class="btn alt-btn">Previous</button>
-                                                        <button v-on:click="nextStep" type="submit" class="btn ">Next Step</button>
+                                                    <div  class="form-group button mb-0">
+                                                        <button v-on:click="previousStep" v-if = "currentStep > 0" type="submit" class="btn alt-btn">Previous</button>
+                                                        <button v-on:click="nextStep" v-if = "currentStep < steps.length - 1" type="submit" class="btn ">Next Step</button>
                                                     </div>
                                                 </div>
                                             </div>

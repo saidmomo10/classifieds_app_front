@@ -5258,12 +5258,12 @@ blockquote .shape {
   border: none !important;
 }
 
-.post-ad-tab .step-two-content .upload-input {
+.upload-input {
   position: relative;
   height: 240px;
 }
 
-.post-ad-tab .step-two-content .upload-input input {
+.upload-input input {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -5273,7 +5273,7 @@ blockquote .shape {
   border-radius: 6px;
 }
 
-.post-ad-tab .step-two-content .upload-input .plus-icon {
+.upload-input .plus-icon {
   height: 80px;
   width: 80px;
   color: #fff;
@@ -5286,11 +5286,11 @@ blockquote .shape {
   transition: all 0.4s ease;
 }
 
-.post-ad-tab .step-two-content .upload-input:hover .plus-icon {
+.upload-input:hover .plus-icon {
   background-color: #5830E0;
-}
+} 
 
-.post-ad-tab .step-two-content .upload-input .content {
+.upload-input .content {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -5309,11 +5309,11 @@ blockquote .shape {
   z-index: 2;
 }
 
-.post-ad-tab .step-two-content .video-label {
+.video-label {
   display: inline-block;
 }
 
-.post-ad-tab .step-two-content .video-label span {
+.video-label span {
   color: #888;
   display: inline-block;
   margin-left: 12px;
@@ -5321,7 +5321,7 @@ blockquote .shape {
   font-size: 14px;
 }
 
-.post-ad-tab .step-two-content .add-video {
+.add-video {
   text-transform: capitalize;
   font-weight: 600;
   color: #888;
@@ -5329,20 +5329,20 @@ blockquote .shape {
   margin-top: 20px;
 }
 
-.post-ad-tab .step-two-content .add-video:hover {
+.add-video:hover {
   color: #5830E0;
 }
 
-.post-ad-tab .step-two-content .add-video i {
+.add-video i {
   display: inline-block;
   margin-right: 5px;
 }
 
-.post-ad-tab .step-two-content .tag-label {
+.tag-label {
   display: inline-block;
 }
 
-.post-ad-tab .step-two-content .tag-label span {
+.tag-label span {
   color: #888;
   display: inline-block;
   margin-left: 12px;
@@ -5359,7 +5359,7 @@ blockquote .shape {
   margin-bottom: 20px;
 }
 
-/* List Nav */
+ /* List Nav */
 .list-nav {
   padding-bottom: 30px;
   margin-bottom: 30px;
