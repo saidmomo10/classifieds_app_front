@@ -14,14 +14,15 @@
                     <label>Category*</label>
                     <div class="selector-head">
                         <span class="arrow"><i class="lni lni-chevron-down"></i></span>
-                        <select class="user-chosen-select" >
+                        <select class="user-chosen-select" v-model="props.formValues.subcategory_id">
                             <option value="none">Select a Category</option>
-                            <option value="none">Téléphones</option>
-                            <option value="none">Electronics</option>
+
+                            <option v-for = "key in statusData" :value="`${key.id}`">{{ key.name }}</option>
+                            <!-- <option value="none">Electronics</option>
                             <option value="none">Computers</option>
                             <option value="none">Headphones</option>
                             <option value="none">Furnitures</option>
-                            <option value="none">Books</option>
+                            <option value="none">Books</option> -->
                         </select>
                     </div>
                 </div>
@@ -184,4 +185,43 @@ const handleImageUpload = (event: { target: { files: any; }; }) => {
 //     loading.value = false;
 //   }
 // };
+
+
+
+
+import {ref, onMounted} from 'vue';
+import axios from 'axios';
+
+const token = localStorage.getItem('token');
+
+const clientHttp = axios.create(
+    {
+        baseURL: "http://localhost:8000/api/",
+        headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+        }
+    }
+)
+
+
+const statusData = ref([])
+
+const status = async ()=>{
+    if (token){
+        try{
+            // const email = router.currentRoute.params.email;
+            const statusResponse = await clientHttp.get('subcategories')
+      console.log(statusResponse);
+      
+            if(statusResponse.status === 200){
+                statusData.value = statusResponse.data
+            }
+        } catch(error){
+            console.log(error);
+            
+        }
+    }
+}
+onMounted(status);
 </script>

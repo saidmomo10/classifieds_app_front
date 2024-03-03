@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/require-v-for-key -->
 
 
 <template>
@@ -470,8 +471,8 @@
                     </div>
                 </div>
             </div>
-            <div v-if = "sub" class="row">
-                <div  :v-for = "sub in subscriptionData" class="col-lg-4 col-md-6 col-12">
+            <div v-if = "subscriptionData" class="row">
+                <div  v-for = "sub in subscriptionData" class="col-lg-4 col-md-6 col-12">
                     <!-- Single Table -->
                     <div class="single-table wow fadeInUp" data-wow-delay=".2s">
                         <!-- Table Head -->

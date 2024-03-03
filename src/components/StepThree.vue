@@ -1,10 +1,10 @@
 <template>
     <form action="" @submit.prevent="submitStepThree" enctype="multipart/form-data">
-      <div>
-      <p v-if="props.formValues.images && props.formValues.images.length > 0">Images sélectionnées :</p>
-      <div v-for="image in props.formValues.images" :key="image.name">
-        <img :src="getImageUrl(image)" alt="Selected image" style="max-width: 200px; max-height: 200px; margin-bottom: 10px;">
-      </div>
+    <div>
+        <p v-if="props.formValues.images && props.formValues.images.length > 0">Images sélectionnées :</p>
+        <div v-for="image in props.formValues.images" :key="image.name">
+          <img :src="getImageUrl(image)" alt="Selected image" style="max-width: 200px; max-height: 200px; margin-bottom: 10px;">
+        </div>
     </div>      <p v-text="props.formValues.title"></p>
       <p v-text="props.formValues.price"></p>
       <p v-text="props.formValues.description"></p>
@@ -23,6 +23,7 @@
 <script setup lang="ts">
     import { ref } from 'vue';
 import axios from 'axios';
+import router from '@/router';
 const props = defineProps(['formValues']);
 console.log(props.formValues)
 
@@ -77,6 +78,7 @@ const submitStepThree = async () => {
     // et déclencher l'événement resetForm une fois le formulaire soumis avec succès
     const response = await clientHttp.post('ads', props.formValues);
     console.log(response.data);
+    router.replace('/adsList')
   } catch (error) {
     console.error('Error submitting step three:', error);
   }

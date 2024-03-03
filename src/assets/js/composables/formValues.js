@@ -1,5 +1,5 @@
 import { reactive } from "vue";
-import {ref, onMounted} from 'vue'
+// import {ref, onMounted} from 'vue'
 import axios from 'axios';
 
 const token = localStorage.getItem('token');
@@ -14,28 +14,32 @@ const clientHttp = axios.create(
     }
 )
 
-const statusData = ref([])
+// const statusData = ref([])
 
-const status = async ()=>{
+const status = async () => {
     if (token){
-        try{
-            // const email = router.currentRoute.params.email;
-            const statusResponse = await clientHttp.get('user')
-    //   console.log(statusResponse.data.id);
-      
-            if(statusResponse.status === 200){
-                statusData.value = statusResponse.data
-            }
-        return statusResponse.data.id
-        } catch(error){
-            console.log(error);
+        try {
+            const statusResponse = await clientHttp.get('user');
             
+            // Vérifiez si la réponse est réussie et si elle contient des données
+            if (statusResponse.status === 200 && statusResponse.data.id) {
+                // Retournez uniquement l'ID de l'utilisateur
+                return statusResponse.data.id;
+            } else {
+                // Si la réponse est invalide ou ne contient pas l'ID, retournez null ou une valeur par défaut
+                return null;
+            }
+        } catch(error) {
+            console.log(error);
+            // En cas d'erreur, retournez null ou une valeur par défaut
+            return null;
         }
-        
+    } else {
+        // Si le token est invalide ou non défini, retournez null ou une valeur par défaut
+        return null;
     }
 }
-console.log(status())
-onMounted(status);
+
 
 export default function useForm(){
     const values = reactive({
@@ -49,6 +53,7 @@ export default function useForm(){
         images:'',
         price_type:'',
         phone:'',
+        subcategory_id:'',
         user_id: status(),
     });
 
