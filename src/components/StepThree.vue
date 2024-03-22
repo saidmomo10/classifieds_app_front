@@ -21,9 +21,11 @@
 </template>
 
 <script setup lang="ts">
-    import { ref } from 'vue';
+import { ref } from 'vue';
 import axios from 'axios';
 import router from '@/router';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 const props = defineProps(['formValues']);
 console.log(props.formValues)
 
@@ -77,9 +79,13 @@ const submitStepThree = async () => {
     // Vous pouvez également ajouter des validations ici
     // et déclencher l'événement resetForm une fois le formulaire soumis avec succès
     const response = await clientHttp.post('ads', props.formValues);
+    toast.success(response.data)
     console.log(response.data);
-    router.replace('/adsList')
+    // router.replace('/adsList')
   } catch (error) {
+    toast.error(error.response.data.message, {
+        autoClose: 1000,
+        });
     console.error('Error submitting step three:', error);
   }
 };

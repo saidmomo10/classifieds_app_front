@@ -1189,7 +1189,7 @@ ol {
 
 .button .btn {
   display: inline-block;
-  text-transform: capitalize;
+  text-transform: ;
   font-size: 15px;
   font-weight: 500;
   padding: 15px 30px;
@@ -4982,6 +4982,7 @@ blockquote .shape {
   padding: 6px 30px;
 }
 
+
 .dashboard-sidebar .dashboard-menu ul li a i {
   display: inline-block;
   margin-right: 10px;
@@ -5005,11 +5006,11 @@ blockquote .shape {
   transition: all 0.4s ease;
 }
 
-.dashboard-sidebar .dashboard-menu ul li a.active {
+.dashboard-sidebar .dashboard-menu ul li a.router-link-active {
   color: #5830E0;
 }
 
-.dashboard-sidebar .dashboard-menu ul li a.active::before {
+.dashboard-sidebar .dashboard-menu ul li a.router-link-active::before {
   opacity: 1;
   visibility: visible;
 }

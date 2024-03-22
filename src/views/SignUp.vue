@@ -1,5 +1,4 @@
 <template>
-    <NavBar/>
     <!-- Start Breadcrumbs -->
     <div class="breadcrumbs">
         <div class="container">
@@ -51,6 +50,10 @@
                             <div class="form-group">
                                 <label>Password</label>
                                 <input name="password" type="password" v-model="userdata.password">
+                            </div>
+                            <div class="form-group">
+                                <label>Confirmer votre mot de passe</label>
+                                <input name="password" type="password" v-model="userdata.password_confirmation">
                             </div>
                             <!-- <div class="form-group">
                                 <label>Confirm Password</label>
@@ -104,6 +107,7 @@ const userdata = ref({
     name: '',
     email: '',
     password: '',
+    password_confirmation: ''
 })
 
 
@@ -126,7 +130,7 @@ async function signup(){
     try {
         const user = await clientHttp.post('auth/register', userdata.value);
         console.log(user);
-        router.replace('/Login');
+        router.replace('/login');
     }catch(error){
             // emailError.value = 'L\'adresse email doit contenir le symbole "@".';
             // passwordError.value = 'Le mot de passe doit avoir au moins 8 caractères.';

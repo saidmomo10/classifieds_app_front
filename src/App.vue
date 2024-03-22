@@ -17,12 +17,12 @@
       <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 
       <!-- ========================= CSS here ========================= -->
-      <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-      <link rel="stylesheet" href="assets/css/LineIcons.2.0.css" />
-      <link rel="stylesheet" href="assets/css/animate.css" />
-      <link rel="stylesheet" href="assets/css/tiny-slider.css" />
-      <link rel="stylesheet" href="assets/css/glightbox.css" />
-      <link rel="stylesheet" href="assets/css/main.css" />
+      <link rel="stylesheet" href="../src/assets/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="../src/assets/css/LineIcons.2.0.css" />
+      <link rel="stylesheet" href="../src/assets/css/animate.css" />
+      <link rel="stylesheet" href="../src/assets/css/tiny-slider.css" />
+      <link rel="stylesheet" href="../src/assets/css/glightbox.css" />
+      <link rel="stylesheet" href="../src/assets/css/main.css" />
 
   </head>
 
@@ -58,14 +58,14 @@
   mounted() {
     setTimeout(() => {
       this.isLoading = false; // Cachez le préchargeur après un délai simulé
-    }, 1000); // Délai simulé de 2 secondes (à remplacer par votre propre logique de chargement)
+    }, 2000); // Délai simulé de 2 secondes (à remplacer par votre propre logique de chargement)
   }
 };
 </script>
 
-<style src="./assets/css/animate.css"></style>
+<!-- <style src="./assets/css/animate.css"></style>
 <style src="./assets/css/bootstrap.min.css"></style>
 <style src="./assets/css/glightbox.min.css"></style>
 <style src="./assets/css/LineIcons.2.0.css"></style>
 <style src="./assets/css/main.css"></style>
-<style src="./assets/css/tiny-slider.css"></style>
+<style src="./assets/css/tiny-slider.css"></style> -->

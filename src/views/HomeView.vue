@@ -11,55 +11,30 @@
                     <div class="hero-text text-center">
                         <!-- Start Hero Text -->
                         <div class="section-heading">
-                            <h2 class="wow fadeInUp" data-wow-delay=".3s">Welcome to ClassiGrids</h2>
-                            <p class="wow fadeInUp" data-wow-delay=".5s">Buy And Sell Everything From Used Cars To Mobile Phones And <br>Computers,
-                                Or Search For Property, Jobs And More.</p>
+                            <h2 class="wow fadeInUp" data-wow-delay=".3s">Bienvenue sur ...</h2>
+                            <p class="wow fadeInUp" data-wow-delay=".5s">Achetez et vendez de tout, des voitures d'occasion aux téléphones portables <br> et ordinateurs,
+                                Ou recherchez une propriété, des emplois et plus encore.</p>
                         </div>
                         <!-- End Search Form -->
                         <!-- Start Search Form -->
                         <div class="search-form wow fadeInUp" data-wow-delay=".7s">
+                            
+
                             <div class="row">
-                                <div class="col-lg-4 col-md-4 col-12 p-0">
+                                <div class="col-lg-10 col-md-10 col-12 p-0">
                                     <div class="search-input">
                                         <label for="keyword"><i class="lni lni-search-alt theme-color"></i></label>
-                                        <input type="text" name="keyword" id="keyword" placeholder="Product keyword">
+                                        <input type="text" name="keyword" id="keyword" placeholder="Rechercher">
                                     </div>
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-12 p-0">
-                                    <div class="search-input">
-                                        <label for="category"><i class="lni lni-grid-alt theme-color"></i></label>
-                                        <select name="category" id="category">
-                                            <option value="none" selected disabled>Categories</option>
-                                            <option value="none">Vehicle</option>
-                                            <option value="none">Electronics</option>
-                                            <option value="none">Mobiles</option>
-                                            <option value="none">Furniture</option>
-                                            <option value="none">Fashion</option>
-                                            <option value="none">Jobs</option>
-                                            <option value="none">Real Estate</option>
-                                            <option value="none">Animals</option>
-                                            <option value="none">Education</option>
-                                            <option value="none">Matrimony</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-12 p-0">
-                                    <div class="search-input">
-                                        <label for="location"><i class="lni lni-map-marker theme-color"></i></label>
-                                        <select name="location" id="location">
-                                            <option value="none" selected disabled>Locations</option>
-                                            <option value="none">New York</option>
-                                            <option value="none">California</option>
-                                            <option value="none">Washington</option>
-                                            <option value="none">Birmingham</option>
-                                            <option value="none">Chicago</option>
-                                            <option value="none">Phoenix</option>
-                                        </select>
-                                    </div>
+                                    <!-- <div class="card" v-if="results.length > 0">
+                                        <div class="card-body bg-black">
+                                            <p v-for="result in results" :key="result.id" >{{ result.title }}</p>
+                                        </div>
+                                    </div> -->
                                 </div>
                                 <div class="col-lg-2 col-md-2 col-12 p-0">
                                     <div class="search-btn button">
-                                        <button class="btn"><i class="lni lni-search-alt"></i> Search</button>
+                                        <button type="button" class="btn"><i class="lni lni-search-alt"></i> Search</button>
                                     </div>
                                 </div>
                             </div>
@@ -100,11 +75,11 @@
             </div>
             <div class="single-head">
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 col-12">
+                    <div v-for="ads in statusData" class="col-lg-4 col-md-6 col-12">
                         <!-- Start Single Grid -->
                         <div class="single-grid wow fadeInUp" data-wow-delay=".2s">
                             <div class="image">
-                                <a href="item-details.html" class="thumbnail"><img src="../assets/images/items-grid/img1.jpg" alt="#"></a>
+                                <RouterLink :to="{name: 'adShow', params: {id:ads.id}}"><img :src="getImageUrl(ads.images)" alt="#"></RouterLink>
                                 <div class="author">
                                     <div class="author-image">
                                         <a href="javascript:void(0)"><img src="../assets/images/items-grid/author-1.jpg" alt="#">
@@ -141,212 +116,23 @@
                         </div>
                         <!-- End Single Grid -->
                     </div>
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <!-- Start Single Grid -->
-                        <div class="single-grid wow fadeInUp" data-wow-delay=".4s">
-                            <div class="image">
-                                <a href="item-details.html" class="thumbnail"><img src="../assets/images/items-grid/img2.jpg" alt="#"></a>
-                                <div class="author">
-                                    <div class="author-image">
-                                        <a href="javascript:void(0)"><img src="../assets/images/items-grid/author-2.jpg" alt="#">
-                                            <span>Alex Jui</span></a>
-                                    </div>
-                                    <p class="sale">For Sale</p>
-                                </div>
-                            </div>
-                            <div class="content">
-                                <div class="top-content">
-                                    <a href="javascript:void(0)" class="tag">Real Estate</a>
-                                    <h3 class="title">
-                                        <a href="item-details.html">Amazing Room for Rent</a>
-                                    </h3>
-                                    <p class="update-time">Last Updated: 2 hours ago</p>
-                                    <ul class="rating">
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><a href="javascript:void(0)">(20)</a></li>
-                                    </ul>
-                                    <ul class="info-list">
-                                        <li><a href="javascript:void(0)"><i class="lni lni-map-marker"></i> Dallas, Washington</a></li>
-                                        <li><a href="javascript:void(0)"><i class="lni lni-timer"></i> Jan 7, 2023</a></li>
-                                    </ul>
-                                </div>
-                                <div class="bottom-content">
-                                    <p class="price">Start From: <span>$450.00</span></p>
-                                    <a href="javascript:void(0)" class="like"><i class="lni lni-heart"></i></a>
-                                </div>
-                            </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="pagination left">
+                            <ul class="pagination-list">
+                            <!-- Bouton "Précédent" -->
+                                <li v-if="previousPage"><a @click="fetchPrevAds(previousPage)" href="javascript:void(0)"><i class="lni lni-chevron-left"></i></a></li>
+                                <!-- Boucle pour afficher les numéros de page -->
+                                <li v-for="pageNumber in totalPages" :key="pageNumber" :class="{ active: currentPage === pageNumber }">
+                                    <a @click="fetchPageAds(pageNumber)" href="javascript:void(0)">{{ pageNumber }}</a>
+                                </li>
+                                <!-- Bouton "Suivant" -->
+                                <li v-if="nextPage"><a @click="fetchNextAds(nextPage)" href="javascript:void(0)"><i class="lni lni-chevron-right"></i></a></li>
+                            </ul>
                         </div>
-                        <!-- End Single Grid -->
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <!-- Start Single Grid -->
-                        <div class="single-grid wow fadeInUp" data-wow-delay=".6s">
-                            <div class="image">
-                                <a href="item-details.html" class="thumbnail"><img src="../assets/images/items-grid/img3.jpg" alt="#"></a>
-                                <div class="author">
-                                    <div class="author-image">
-                                        <a href="javascript:void(0)"><img src="../assets/images/items-grid/author-3.jpg" alt="#">
-                                            <span>Devid Milan</span></a>
-                                    </div>
-                                    <p class="sale">For Sale</p>
-                                </div>
-                                <p class="item-position"><i class="lni lni-bolt"></i> Featured</p>
-                            </div>
-                            <div class="content">
-                                <div class="top-content">
-                                    <a href="javascript:void(0)" class="tag">Mobile Phones</a>
-                                    <h3 class="title">
-                                        <a href="item-details.html">Canon SX Powershot D-SLR</a>
-                                    </h3>
-                                    <p class="update-time">Last Updated: 3 hours ago</p>
-                                    <ul class="rating">
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><a href="javascript:void(0)">(55)</a></li>
-                                    </ul>
-                                    <ul class="info-list">
-                                        <li><a href="javascript:void(0)"><i class="lni lni-map-marker"></i> New York, US</a></li>
-                                        <li><a href="javascript:void(0)"><i class="lni lni-timer"></i> Mar 18, 2023</a></li>
-                                    </ul>
-                                </div>
-                                <div class="bottom-content">
-                                    <p class="price">Start From: <span>$700.00</span></p>
-                                    <a href="javascript:void(0)" class="like"><i class="lni lni-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Grid -->
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <!-- Start Single Grid -->
-                        <div class="single-grid wow fadeInUp" data-wow-delay=".2s">
-                            <div class="image">
-                                <a href="item-details.html" class="thumbnail"><img src="../assets/images/items-grid/img4.jpg" alt="#"></a>
-                                <div class="author">
-                                    <div class="author-image">
-                                        <a href="javascript:void(0)"><img src="../assets/images/items-grid/author-4.jpg" alt="#">
-                                            <span>Jesia Jully</span></a>
-                                    </div>
-                                    <p class="sale">For Sale</p>
-                                </div>
-                            </div>
-                            <div class="content">
-                                <div class="top-content">
-                                    <a href="javascript:void(0)" class="tag">Vehicles</a>
-                                    <h3 class="title">
-                                        <a href="item-details.html">BMW 5 Series GT Car</a>
-                                    </h3>
-                                    <p class="update-time">Last Updated: 4 hours ago</p>
-                                    <ul class="rating">
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><a href="javascript:void(0)">(35)</a></li>
-                                    </ul>
-                                    <ul class="info-list">
-                                        <li><a href="javascript:void(0)"><i class="lni lni-map-marker"></i> New York, US</a></li>
-                                        <li><a href="javascript:void(0)"><i class="lni lni-timer"></i> Apr 12, 2023</a></li>
-                                    </ul>
-                                </div>
-                                <div class="bottom-content">
-                                    <p class="price">Start From: <span>$1000.00</span></p>
-                                    <a href="javascript:void(0)" class="like"><i class="lni lni-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Grid -->
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <!-- Start Single Grid -->
-                        <div class="single-grid wow fadeInUp" data-wow-delay=".4s">
-                            <div class="image">
-                                <a href="item-details.html" class="thumbnail"><img src="../assets/images/items-grid/img5.jpg" alt="#"></a>
-                                <div class="author">
-                                    <div class="author-image">
-                                        <a href="javascript:void(0)"><img src="../assets/images/items-grid/author-5.jpg" alt="#">
-                                            <span>Thomas Deco</span></a>
-                                    </div>
-                                    <p class="sale">For Sale</p>
-                                </div>
-                                <p class="item-position"><i class="lni lni-bolt"></i> Featured</p>
-                            </div>
-                            <div class="content">
-                                <div class="top-content">
-                                    <a href="javascript:void(0)" class="tag">Apple</a>
-                                    <h3 class="title">
-                                        <a href="item-details.html">Apple Macbook Pro 13 Inch</a>
-                                    </h3>
-                                    <p class="update-time">Last Updated: 5 hours ago</p>
-                                    <ul class="rating">
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><a href="javascript:void(0)">(35)</a></li>
-                                    </ul>
-                                    <ul class="info-list">
-                                        <li><a href="javascript:void(0)"><i class="lni lni-map-marker"></i> Louis, Missouri, US</a></li>
-                                        <li><a href="javascript:void(0)"><i class="lni lni-timer"></i> May 25, 2023</a></li>
-                                    </ul>
-                                </div>
-                                <div class="bottom-content">
-                                    <p class="price">Start From: <span>$550.00</span></p>
-                                    <a href="javascript:void(0)" class="like"><i class="lni lni-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Grid -->
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-12">
-                        <!-- Start Single Grid -->
-                        <div class="single-grid wow fadeInUp" data-wow-delay=".6s">
-                            <div class="image">
-                                <a href="item-details.html" class="thumbnail"><img src="../assets/images/items-grid/img6.jpg" alt="#"></a>
-                                <div class="author">
-                                    <div class="author-image">
-                                        <a href="javascript:void(0)"><img src="../assets/images/items-grid/author-6.jpg" alt="#">
-                                            <span>Jonson zack</span></a>
-                                    </div>
-                                    <p class="sale">For Sale</p>
-                                </div>
-                            </div>
-                            <div class="content">
-                                <div class="top-content">
-                                    <a href="javascript:void(0)" class="tag">Restaurant</a>
-                                    <h3 class="title">
-                                        <a href="item-details.html">Cream Restaurant</a>
-                                    </h3>
-                                    <p class="update-time">Last Updated: 7 hours ago</p>
-                                    <ul class="rating">
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><i class="lni lni-star-filled"></i></li>
-                                        <li><a href="javascript:void(0)">(20)</a></li>
-                                    </ul>
-                                    <ul class="info-list">
-                                        <li><a href="javascript:void(0)"><i class="lni lni-map-marker"></i> New York, US</a></li>
-                                        <li><a href="javascript:void(0)"><i class="lni lni-timer"></i> Feb 18, 2023</a></li>
-                                    </ul>
-                                </div>
-                                <div class="bottom-content">
-                                    <p class="price">Start From: <span>$500.00</span></p>
-                                    <a href="javascript:void(0)" class="like"><i class="lni lni-heart"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Grid -->
+                        
+                        <!--/ End Pagination -->
                     </div>
                 </div>
             </div>
@@ -710,9 +496,35 @@
 
 <script setup lang="ts">
 import NavBar from '../components/NavBar.vue'
-import CategorySlider from '../components/CategorySlider.vue'
-import {ref} from 'vue'
+import CategorySlider from '@/components/CategorySlider.vue'
+import useAds from '../components/composables/adsApi'
+import {ref, onMounted, watch} from 'vue'
 import axios from 'axios';
+
+
+const {nextPage,
+        previousPage,
+        currentPage,
+        totalPages,
+        statusData,
+        fetchPageAds,
+        fetchNextAds,
+        fetchPrevAds,
+        status} = useAds()
+onMounted(fetchPrevAds)
+onMounted(fetchNextAds)
+onMounted(fetchPageAds)
+onMounted(status)
+
+
+const getImageUrl = (images:string) => {
+  if (images && images.length > 0) {
+    return 'http://localhost:8000/storage/' + images[0].path;
+  }
+  return ''; // Ou une image par défaut si aucune image n'est disponible
+};
+
+
 
 const token = localStorage.getItem('token');
 
@@ -752,12 +564,101 @@ async function activateSubscription(id: number){
     try {
         const activate = await clientHttp.put(`activateSubscription/${id}`);
         console.log(activate);
+        window.location.reload();
     }catch(error){
             // emailError.value = 'L\'adresse email doit contenir le symbole "@".';
             // passwordError.value = 'Le mot de passe doit avoir au moins 8 caractères.';
             console.log(error);
     }
 }
+
+// const keywords = ref('');
+// const results = ref('');
+
+// // watch(keywords, (newValue, oldValue) => {
+// //   fetchResults();
+// // });
+
+// // const fetchResults = () => {
+// //   if (!keywords.value) {
+// //     results.value = [];
+// //     return;
+// //   }
+
+// //   axios.get('/search', { params: { keywords: keywords.value } })
+// //     .then(response => {
+// //       results.value = response.data;
+// //     })
+// //     .catch(error => {
+// //       console.error('Error fetching search results:', error);
+// //     });
+// // };
+
+
+// const fetchResults = async ()=>{
+//     if (token){
+//         try{
+//             if (!keywords.value) {
+//                 results.value = [];
+//                 return;
+//             }
+//             // const email = router.currentRoute.params.email;
+//             const ads = await clientHttp.get('/search', { params: { keywords: keywords.value } })
+//       console.log(ads);
+      
+//             if(ads.status === 200){
+//                 results.value = ads.data
+//             }
+//         } catch(error){
+//             console.log(error);
+            
+//         }
+//     }
+// }
+// watch(keywords, () => {
+//   fetchResults();
+// });
+
+// // const searchQuery = ref<string | null>(null);
+// // const results = ref<any[]>([]);
+// // const ad = ref<any[]>([]);
+// // const userdetails = ref<boolean>(false);
+
+// // const getResults = () => {
+// //     axios.get('/livesearch' + searchQuery.value)
+// //         .then(res => {
+// //             results.value = res.data;
+// //         })
+// //         .catch(error => {
+// //             console.error(error);
+// //         });
+// // };
+
+// // const selectedItem = async (id)=>{
+// //     if (token){
+// //         try{
+// //             // const email = router.currentRoute.params.email;
+// //             const getResponse = await clientHttp.get(`livesearch/${id}`)
+// //             console.log(getResponse);
+    
+// //             if(getResponse.status === 200){
+// //                     ad.value = getResponse.data
+// //                 }
+// //         } catch(error){
+// //             console.log(error);
+            
+// //         }
+// //     }
+// // }
+
+// // const search = () => {
+// //     getResults()
+// // }
+
+// // // watch(searchQuery, () => {
+// // //     getResults();
+// // // });
+
 
 </script>
 

@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-parsing-error -->
 <template>
     <NavBar/>
     <!-- Start Breadcrumbs -->
@@ -6,13 +7,13 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6 col-12">
                     <div class="breadcrumbs-content">
-                        <h1 class="page-title">Ad Listings Grid</h1>
+                        <h1 class="page-title">Annonces</h1>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
-                        <li><a href="index.html">Home</a></li>
-                        <li>Listings Grid</li>
+                        <li><a href="index.html">Accueil</a></li>
+                        <li>Annonces</li>
                     </ul>
                 </div>
             </div>
@@ -27,42 +28,17 @@
                 <div class="col-lg-3 col-md-4 col-12">
                     <div class="category-sidebar">
                         <!-- Start Single Widget -->
-                        <div class="single-widget search">
+                        <!-- <div class="single-widget search">
                             <h3>Search Ads</h3>
-                            <form action="#">
-                                <input type="text" placeholder="Search Here...">
-                                <button type="submit"><i class="lni lni-search-alt"></i></button>
-                            </form>
-                        </div>
+                                <form action="">
+                                    <input v-model="query" @keyup.enter = "search()" type="text" placeholder="Search Here...">
+                                <button @click="search()" type="button"><i class="lni lni-search-alt"></i></button>
+                                </form>
+                        </div> -->
+                        <SearchBar/>
                         <!-- End Single Widget -->
                         <!-- Start Single Widget -->
-                        <div class="single-widget">
-                            <h3>All Categories</h3>
-                            <ul class="list">
-                                <li>
-                                    <a href="javascript:void(0)"><i class="lni lni-dinner"></i> Hotel & Travels<span>15</span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><i class="lni lni-control-panel"></i> Services <span>20</span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><i class="lni lni-bullhorn"></i> Marketing <span>55</span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><i class="lni lni-home"></i> Real Estate<span>35</span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><i class="lni lni-bolt"></i> Electronics <span>60</span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><i class="lni lni-tshirt"></i> Dress & Clothing <span>55</span></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0)"><i class="lni lni-diamond-alt"></i> Jewelry & Accessories
-                                        <span>45</span></a>
-                                </li>
-                            </ul>
-                        </div>
+                        <CategorySide/>
                         <!-- End Single Widget -->
                         <!-- Start Single Widget -->
                         <div class="single-widget range">
@@ -136,20 +112,18 @@
                                 <div class="tab-content" id="nav-tabContent">
                                     <div class="tab-pane fade show active" id="nav-grid" role="tabpanel"
                                         aria-labelledby="nav-grid-tab">
-                                        <div class="row" v-if = "statusData">
-                                            <div class="col-lg-4 col-md-6 col-12" v-for = "ads in statusData">
-                                                
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-6 col-12" v-for = "ad in adStore.filteredAds" :key="ad.id">
                                                 <!-- Start Single Item -->
                                                 <div class="single-item-grid">
-                                                    <div  class="image">
-                                                    <a href="item-details.html"><img :src="getImageUrl(ads.images)" alt="ads.title"></a>
-                                                    <i class=" cross-badge lni lni-bolt"></i>
-                                                    <span class="flat-badge sale">Sale</span>
-                                                </div>
+                                                    <div class="image">
+                                                        <RouterLink :to="{name: 'adShow', params: {id:ad.id}}"><img :src="getImageUrl(ad.images)" alt="#"></RouterLink>                                                        <i class=" cross-badge lni lni-bolt"></i>
+                                                        <span class="flat-badge sale">Sale</span>
+                                                    </div>
                                                     <div class="content">
-                                                        <a href="javascript:void(0)" class="tag">Mobile</a>
+                                                        <a href="javascript:void(0)" class="tag">{{ ad.subcategory.name }}</a>
                                                         <h3 class="title">
-                                                            <a href="item-details.html">{{ads.title}}</a>
+                                                            <a href="item-details.html">{{ ad.title }}</a>
                                                         </h3>
                                                         <p class="location"><a href="javascript:void(0)"><i class="lni lni-map-marker">
                                                                 </i>Boston</a></p>
@@ -163,43 +137,31 @@
                                                 </div>
                                                 <!-- End Single Item -->
                                             </div>
-                                            
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <!-- Pagination -->
-                                                <div class="pagination left">
-                                                    <ul class="pagination-list">
-                                                        <li><a href="javascript:void(0)">1</a></li>
-                                                        <li class="active"><a href="javascript:void(0)">2</a></li>
-                                                        <li><a href="javascript:void(0)">3</a></li>
-                                                        <li><a href="javascript:void(0)">4</a></li>
-                                                        <li><a href="javascript:void(0)"><i class="lni lni-chevron-right"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                                <!--/ End Pagination -->
-                                            </div>
                                         </div>
                                     </div>
+
+
+
+
+
                                     <div class="tab-pane fade" id="nav-list" role="tabpanel"
                                         aria-labelledby="nav-list-tab">
-                                        <div class="row" v-if = "statusData">
-                                            <div class="col-lg-12 col-md-12 col-12" v-for = "ads in statusData">
-                                                <!-- Start Single Item -->
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-12" v-for = "ad in adStore.filteredAds" :key="ad.id">
                                                 <div class="single-item-grid">
                                                     <div class="row align-items-center">
                                                         <div class="col-lg-5 col-md-7 col-12">
                                                             <div class="image">
-                                                                <a href="item-details.html"><img :src="getImageUrl(ads.images)" alt="#"></a>
+                                                                <RouterLink :to="{name: 'adShow', params: {id:ad.id}}"><img :src="getImageUrl(ad.images)" alt="#"></RouterLink>
                                                                 <i class=" cross-badge lni lni-bolt"></i>
                                                                 <span class="flat-badge sale">Sale</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-7 col-md-5 col-12">
                                                             <div class="content">
-                                                                <a href="javascript:void(0)" class="tag">{{ ads.subcategory.name }}</a>
+                                                                <a href="javascript:void(0)" class="tag">{{ ad.subcategory.name }}</a>
                                                                 <h3 class="title">
-                                                                    <a href="item-details.html">Travel Kit</a>
+                                                                    <a href="item-details.html">{{ ad.title }}</a>
                                                                 </h3>
                                                                 <p class="location"><a href="javascript:void(0)"><i
                                                                             class="lni lni-map-marker">
@@ -214,27 +176,23 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- End Single Item -->
                                             </div>
-                                            
                                         </div>
-                                        <div class="row">
+                                        <!-- <div class="row">
                                             <div class="col-12">
-                                                <!-- Pagination -->
-                                                <div v-if="previousPage" class="pagination left">
-                                                    <button class="text-grey-darker" @click="fetchNextAds(previousPage)">
-                                                        Précédent
-                                                    </button>
-                                                </div>
-                                                <div v-if="nextPage" class="pagination left">
-                                                    <button class="text-grey-darker" @click="fetchPrevAds(nextPage)">
-                                                        Suivant
-                                                    </button>
+                                                <div class="pagination left">
+                                                    <ul class="pagination-list">
+                                                        <li v-if="previousPage"><a @click="fetchPrevAds(previousPage)" href="javascript:void(0)"><i class="lni lni-chevron-left"></i></a></li>
+                                                        <li v-for="pageNumber in totalPages" :key="pageNumber" :class="{ active: currentPage === pageNumber }">
+                                                            <a @click="fetchPageAds(pageNumber)" href="javascript:void(0)">{{ pageNumber }}</a>
+                                                        </li>
+                                                        <li v-if="nextPage"><a @click="fetchNextAds(nextPage)" href="javascript:void(0)"><i class="lni lni-chevron-right"></i></a></li>
+                                                    </ul>
                                                 </div>
                                                 
-                                                <!--/ End Pagination -->
                                             </div>
-                                        </div>
+                                        </div> -->
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -250,85 +208,48 @@
 <script setup lang="ts">
 import NavBar from '../components/NavBar.vue'
 import {ref, onMounted} from 'vue';
-import axios from 'axios';
+import SearchBar from '@/components/SearchBar.vue';
+import CategorySide from '@/components/CategorySide.vue';
+import { RouterLink } from 'vue-router'
+// import useAds from '../components/composables/adsApi'
+import { useAdStore } from '../components/stores/adStore.js'
 
-const token = localStorage.getItem('token');
+const adStore = useAdStore()
+adStore.getAds()
 
-const clientHttp = axios.create(
-    {
-        baseURL: "http://localhost:8000/api/",
-        headers: {
-            Accept: "application/json",
-            Authorization: `Bearer ${token}`,
-        }
-    }
-)
 
-// const getImageUrl = (imagePath) => {
-//     return 'http://localhost:8000/storage/' + imagePath; // Remplacez 'chemin/vers/le/dossier/' par le chemin réel de votre dossier d'images
-// }
 
-const getImageUrl = (images) => {
+
+
+// const {nextPage,
+//         previousPage,
+//         currentPage,
+//         totalPages,
+//         statusData,
+//         fetchPageAds,
+//         fetchNextAds,
+//         fetchPrevAds,
+//         filteredAds,
+//         status} = useAds()
+// onMounted(fetchPrevAds)
+// onMounted(fetchNextAds)
+// onMounted(fetchPageAds)
+// onMounted(status)
+// const { getAds, filter, filteredAds } = useAds()
+// onMounted(getAds)
+// onMounted(filter)
+
+
+
+
+
+const getImageUrl = (images: string) => {
   if (images && images.length > 0) {
     return 'http://localhost:8000/storage/' + images[0].path;
   }
   return ''; // Ou une image par défaut si aucune image n'est disponible
 };
 
-// console.log(getImageUrl());
 
 
-const statusData = ref([])
-const nextPage = ref("")
-const previousPage = ref("")
-
-const status = async ()=>{
-    if (token){
-        try{
-            // const email = router.currentRoute.params.email;
-            const statusResponse = await clientHttp.get('ads')
-      console.log(statusResponse);
-      
-            if(statusResponse.status === 200){
-                const pagination = statusResponse.data
-                statusData.value = pagination.data
-                nextPage.value = pagination.next_page_url
-            }
-        } catch(error){
-            console.log(error);
-            
-        }
-    }
-}
-onMounted(status);
-
-const fetchNextAds = async (url) => {
-  try {
-    const statusResponse = await clientHttp.get(url);
-    console.log(statusResponse);
-
-    if (statusResponse.status === 200) {
-      const pagination = statusResponse.data;
-      statusData.value = pagination.data;
-      previousPage.value = pagination.next_page_url;
-    }
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-const fetchPrevAds = async (url) => {
-  try {
-    const statusResponse = await clientHttp.get(url);
-    console.log(statusResponse);
-
-    if (statusResponse.status === 200) {
-      const pagination = statusResponse.data;
-      statusData.value = pagination.data;
-      previousPage.value = pagination.prev_page_url;
-    }
-  } catch (error) {
-    console.log(error);
-  }
-}
 </script>

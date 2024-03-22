@@ -27,7 +27,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12">
+            <!-- <div class="col-12">
                 <div class="form-group">
                     <label>Add Price*</label>
                     <input name="price" type="number" placeholder="Enter Price" v-model="props.formValues.price">
@@ -46,12 +46,14 @@
                         </select>
                     </div>
                 </div>
-            </div>
+            </div> -->
             
             
             
             
             <input type="hidden" name="user_id" v-model="props.formValues.user_id">
+            <input type="hidden" name="user_subscription_id" v-model="props.formValues.user_subscription_id">
+
             
             
             
@@ -73,7 +75,17 @@
                     </label>
                 </div>
             </div>
+            
+
             <div class="col-lg-6 col-12">
+                <p v-if="props.formValues.images && props.formValues.images.length > 0">Images sélectionnées :</p>
+                <div class="row" v-for="image in props.formValues.images" :key="image.name">
+                    <img :src="getImageUrl(image)" alt="Selected image" style="max-width: 100px; max-height: 200px; margin-bottom: 10px;">
+                </div>
+            </div>
+
+
+            <div v-if="userData.key !== null" class="col-12">
                 <div class="form-group">
                     <label class="video-label">Video Link* <span>Input only
                             YouTube & Vimeo</span></label>
@@ -89,7 +101,7 @@
                     <textarea name="message" placeholder="Input ad description" v-model="props.formValues.description"></textarea>
                 </div>
             </div>
-            <div class="col-lg-6 col-12">
+            <!-- <div class="col-lg-6 col-12">
                 <div class="form-group">
                     <label>Delivery Status*</label>
                     <div class="selector-head">
@@ -114,7 +126,7 @@
                         </select>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="col-lg-6 col-12">
                 <div class="form-group">
                     <label>Item Condition*</label>
@@ -147,7 +159,8 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps(['formValues'])
+const props = defineProps(['formValues']);
+
 
 const handleImageUpload = (event: { target: { files: any; }; }) => {
   const files = event.target.files;
@@ -160,6 +173,10 @@ const handleImageUpload = (event: { target: { files: any; }; }) => {
   // Mettre à jour la propriété formValues.images avec le tableau d'images
   // eslint-disable-next-line vue/no-mutating-props
   props.formValues.images = images;
+}
+
+const getImageUrl = (image: Blob | MediaSource) => {
+  return URL.createObjectURL(image);
 }
 
 // import { ref } from 'vue';
@@ -212,7 +229,7 @@ const status = async ()=>{
         try{
             // const email = router.currentRoute.params.email;
             const statusResponse = await clientHttp.get('subcategories')
-      console.log(statusResponse);
+      console.log(statusResponse.data);
       
             if(statusResponse.status === 200){
                 statusData.value = statusResponse.data
@@ -224,4 +241,31 @@ const status = async ()=>{
     }
 }
 onMounted(status);
+
+
+const userData = ref([])
+
+const user = async ()=>{
+    if (token){
+        try{
+            // const email = router.currentRoute.params.email;
+            const statusResponse = await clientHttp.get('adStatus')
+      console.log(statusResponse);
+      
+            if(statusResponse.status === 200){
+                userData.value = statusResponse.data
+            }
+        } catch(error){
+            console.log(error);
+            
+        }
+    }
+}
+onMounted(() => {
+        // Appeler fetchStatus au démarrage
+        user();
+
+        // Actualiser les données toutes les X secondes (par exemple, toutes les 5 secondes)
+        // setInterval(status, 2000);
+    });
 </script>

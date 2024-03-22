@@ -33,28 +33,26 @@
                                         <a class=" active dd-menu collapsed" href="javascript:void(0)"
                                             data-bs-toggle="collapse" data-bs-target="#submenu-1-1"
                                             aria-controls="navbarSupportedContent" aria-expanded="false"
-                                            aria-label="Toggle navigation">Home</a>
+                                            aria-label="Toggle navigation">Accueil</a>
                                         <ul class="sub-menu collapse" id="submenu-1-1">
-                                            <li class="nav-item active"><a href="index.html">Home Default</a></li>
-                                            <li class="nav-item"><a href="javascript:void(0)">Home Version 2</a></li>
-                                            <li class="nav-item"><a href="javascript:void(0)">Home Version 3</a></li>
+                                            <li class="nav-item active"><a href="/">Home Default</a></li>
                                         </ul>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="javascript:void(0)" aria-label="Toggle navigation">Categories</a>
+                                        <a href="/category" aria-label="Toggle navigation">Categories</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class=" dd-menu collapsed" href="javascript:void(0)"
                                             data-bs-toggle="collapse" data-bs-target="#submenu-1-3"
                                             aria-controls="navbarSupportedContent" aria-expanded="false"
-                                            aria-label="Toggle navigation">Listings</a>
+                                            aria-label="Toggle navigation">Annonces</a>
                                         <ul class="sub-menu collapse" id="submenu-1-3">
                                             <li class="nav-item"><a href="javascript:void(0)">Ad Grid</a></li>
                                             <li class="nav-item"><a href="javascript:void(0)">Ad Listing</a></li>
                                             <li class="nav-item"><a href="javascript:void(0)">Ad Details</a></li>
                                         </ul>
                                     </li>
-                                    <li class="nav-item">
+                                    <!-- <li class="nav-item">
                                         <a class=" dd-menu collapsed" href="javascript:void(0)"
                                             data-bs-toggle="collapse" data-bs-target="#submenu-1-4"
                                             aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -98,7 +96,7 @@
                                                 </ul>
                                             </li>
                                         </ul>
-                                    </li>
+                                    </li> -->
                                     <li class="nav-item">
                                         <a class=" dd-menu collapsed" href="javascript:void(0)"
                                             data-bs-toggle="collapse" data-bs-target="#submenu-1-5"
@@ -117,18 +115,25 @@
                             <div class="login-button">
                                 <ul>
                                     <li>
-                                        <a href="javascript:void(0)"><i class="lni lni-enter"></i> Login</a>
+                                        <a href="login"><i class="lni lni-enter"></i> Se connecter</a>
                                     </li>
-                                    <li>
-                                        <a href="javascript:void(0)"><i class="lni lni-user"></i> Register</a>
-                                    </li>
+                                    <!-- <li>
+                                        <a href="signup"><i class="lni lni-user"></i> Register</a>
+                                    </li> -->
+                                    <!-- <li>
+                                        <form @submit.prevent = "logout" action="">
+                                            <div class="button">
+                                                <button type="submit" class="btn">Logout</button>
+                                            </div>
+                                        </form>
+                                    </li> -->
                                 </ul>
                             </div>
-                            <div v-if = "statusData.pivot">
-                                {{ statusData.pivot.status }}
+                            <div v-if = "statusData">
+                                {{ statusData.status }}
                             </div>
                             <div class="button header-button">
-                                <a href="about" class="btn">Post an Ad</a>
+                                <a href="about" class="btn">Publier une annonce</a>
                             </div>
                         </nav> <!-- navbar -->
                     </div>
@@ -142,8 +147,9 @@
 
 
 <script setup lang="ts">
-    import {ref, onMounted} from 'vue'
+import {ref, onMounted} from 'vue'
 import axios from 'axios';
+import router from '@/router';
 
 const token = localStorage.getItem('token');
 
@@ -176,5 +182,53 @@ const status = async ()=>{
         }
     }
 }
-onMounted(status);
+onMounted(() => {
+        // Appeler fetchStatus au démarrage
+        status();
+
+        // Actualiser les données toutes les X secondes (par exemple, toutes les 5 secondes)
+        // setInterval(status, 2000);
+    });
+
+
+    const statu = async ()=>{
+    if (token){
+        try{
+            // const email = router.currentRoute.params.email;
+            const statusResponse = await clientHttp.get('showSubscription')
+      console.log(statusResponse);
+      
+            if(statusResponse.status === 200){
+                statusData.value = statusResponse.data
+            }
+        } catch(error){
+            console.log(error);
+            
+        }
+    }
+}
+onMounted(() => {
+        // Appeler fetchStatus au démarrage
+        statu();
+
+        // Actualiser les données toutes les X secondes (par exemple, toutes les 5 secondes)
+        // setInterval(status, 2000);
+    });
+
+
+    async function logout(){
+        try {
+            const user = await clientHttp.post('logout');
+            console.log(user);
+            router.replace('/login');
+            // toast.success(user.data)
+        }catch(error){
+                // emailError.value = 'L\'adresse email doit contenir le symbole "@".';
+                // passwordError.value = 'Le mot de passe doit avoir au moins 8 caractères.';
+            //     toast.error(error.response.data.message, {
+            // autoClose: 1000,
+            // });
+                console.log(error);
+        }
+    }
 </script>

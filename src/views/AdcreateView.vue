@@ -26,32 +26,7 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-4 col-12">
                         <!-- Start Dashboard Sidebar -->
-                        <div class="dashboard-sidebar">
-                            <div class="user-image">
-                                <img src="" alt="#">
-                                <h3>Steve Aldridge
-                                    <span><a href="javascript:void(0)">@username</a></span>
-                                </h3>
-                            </div>
-                            <div class="dashboard-menu">
-                                <ul>
-                                    <li><a href="dashboard.html"><i class="lni lni-dashboard"></i> Dashboard</a></li>
-                                    <li><a href="profile-settings.html"><i class="lni lni-pencil-alt"></i> Edit Profile</a>
-                                    </li>
-                                    <li><a href="my-items.html"><i class="lni lni-bolt-alt"></i> My Ads</a></li>
-                                    <li><a href="favourite-items.html"><i class="lni lni-heart"></i> Favourite ads</a></li>
-                                    <li><a class="active" href="post-item.html"><i class="lni lni-circle-plus"></i> Post An
-                                            Ad</a></li>
-                                    <li><a href="bookmarked-items.html"><i class="lni lni-bookmark"></i> Bookmarked</a></li>
-                                    <li><a href="messages.html"><i class="lni lni-envelope"></i> Messages</a></li>
-                                    <li><a href="delete-account.html"><i class="lni lni-trash"></i> Close account</a></li>
-                                    <li><a href="invoice.html"><i class="lni lni-printer"></i> Invoice</a></li>
-                                </ul>
-                                <div class="button">
-                                    <a class="btn" href="javascript:void(0)">Logout</a>
-                                </div>
-                            </div>
-                        </div>
+                        <DashboardSidebar/>
                         <!-- Start Dashboard Sidebar -->
                     </div>
                     <div class="col-lg-9 col-md-8 col-12">
@@ -145,11 +120,11 @@
     </body>
 </template>
 
-<script setup lang="ts">
+<script setup>
   import NavBar from '@/components/NavBar.vue';
+  import DashboardSidebar from '@/components/DashboardSidebar.vue'
   import { ref } from 'vue';
-  import axios from 'axios';
-  import useForm from '../assets/js/composables/formValues.js'
+  import useForm from '@/components/composables/formValues'
 
   import StepOne from '../components/StepOne.vue';
   import StepTwo from '../components/StepTwo.vue';
@@ -160,7 +135,6 @@
   } = useForm();
 
   const currentStep = ref(0);
-  const formData = ref('');
   console.log(currentStep);
   
 
@@ -232,9 +206,3 @@
   }
 </style>
 
-<style src="../assets/css/animate.css"></style>
-<style src="../assets/css/bootstrap.min.css"></style>
-<style src="../assets/css/glightbox.min.css"></style>
-<style src="../assets/css/LineIcons.2.0.css"></style>
-<style src="../assets/css/main.css"></style>
-<style src="../assets/css/tiny-slider.css"></style>

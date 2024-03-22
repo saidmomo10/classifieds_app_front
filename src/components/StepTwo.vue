@@ -2,13 +2,13 @@
 <template>
     <form class="default-form-style" method="post" action="#">
         <div class="row">
-            <div class="col-lg-6 col-12">
+            <!-- <div class="col-lg-6 col-12">
                 <div class="form-group">
                     <label>Mobile Numbe*</label>
                     <input v-model="props.formValues.phone" name="number" type="text"
                         placeholder="Enter mobile number">
                 </div>
-            </div>
+            </div> -->
             <div class="col-12">
                 <div class="form-group">op
                     <label>Country*</label>
@@ -29,7 +29,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-6 col-12">
+            <!-- <div class="col-lg-6 col-12">
                 <div class="form-group">
                     <label>Select City*</label>
                     <div class="selector-head">
@@ -38,14 +38,10 @@
                         <select class="user-chosen-select" v-model="props.formValues.city">
                             <option value="none">Select City</option>
                             <option value="New York">New York</option>
-                            <!-- <option value="none">Los Angeles</option>
-                            <option value="none">Chicago</option>
-                            <option value="none">San Diego</option>
-                            <option value="none">San Jose</option> -->
                         </select>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="col-12">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value=""
@@ -115,6 +111,6 @@ const props = defineProps(['formValues'])
 // };
 </script>
 
-<style scoped>
+<style >
 
 </style>
